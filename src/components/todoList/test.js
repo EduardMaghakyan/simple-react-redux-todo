@@ -1,4 +1,4 @@
-/* global describe, it, expect */
+/* global describe, it, expect, jest */
 import React from 'react';
 import { shallow } from 'enzyme';
 import TodoList from '.';
@@ -17,7 +17,7 @@ describe('Render list of todos', () => {
     deleteTodo: deleteMock,
   };
 
-  const component = shallow(<TodoList todos={props.todos} />);
+  const component = shallow(<TodoList todos={props.todos} deleteTodo={props.deleteTodo} />);
 
   it('Should render todo list', () => {
     expect(component.exists()).toEqual(true);
