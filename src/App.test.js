@@ -6,13 +6,18 @@ import { App } from './App';
 import { initialState } from './reducers/';
 
 it('App renders without crashing', () => {
-  const mockFunction = jest.fn();
+  const submitMock = jest.fn();
+  const deleteMock = jest.fn();
+  const changeMock = jest.fn();
 
   const component = shallow(
     <App
       state={initialState}
-      submitTodo={mockFunction}
+      submitTodo={submitMock}
       todos={[]}
+      deleteTodo={deleteMock}
+      inputChanged={changeMock}
+      disableAddTodo
     />,
   );
 

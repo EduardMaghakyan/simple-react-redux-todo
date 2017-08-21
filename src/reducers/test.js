@@ -25,6 +25,7 @@ describe('Reducer', () => {
             text: todoText,
           },
         ],
+        disableAddTodo: true,
       };
 
       expect(reducer(undefined, action)).toEqual(expectedState);
@@ -40,6 +41,7 @@ describe('Reducer', () => {
             text: todoText,
           },
         ],
+        disableAddTodo: true,
       };
 
       const action = {
@@ -49,6 +51,47 @@ describe('Reducer', () => {
 
       const expectedState = {
         todos: [],
+        disableAddTodo: true,
+      };
+
+      expect(reducer(startingState, action)).toEqual(expectedState);
+    });
+  });
+
+  describe('Input changed', () => {
+    it('Return same state if input is empty.', () => {
+      const startingState = {
+        todos: [],
+        disableAddTodo: true,
+      };
+
+      const action = {
+        type: types.INPUT_CHANGED,
+        inputText: '',
+      };
+
+      const expectedState = {
+        todos: [],
+        disableAddTodo: true,
+      };
+
+      expect(reducer(startingState, action)).toEqual(expectedState);
+    });
+
+    it('Should return correct state when text is entered', () => {
+      const startingState = {
+        todos: [],
+        disableAddTodo: true,
+      };
+
+      const action = {
+        type: types.INPUT_CHANGED,
+        inputText: todoText,
+      };
+
+      const expectedState = {
+        todos: [],
+        disableAddTodo: false,
       };
 
       expect(reducer(startingState, action)).toEqual(expectedState);

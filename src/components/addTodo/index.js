@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const AddTodo = ({ submitTodo }) => {
+const AddTodo = ({ submitTodo, inputChanged, disableAddTodo }) => {
   let input;
   return (
     <div>
@@ -17,9 +17,10 @@ const AddTodo = ({ submitTodo }) => {
           ref={(element) => {
             input = element;
           }}
+          onChange={() => inputChanged(input.value)}
         />
 
-        <button type="submit" className="todo-submit">
+        <button type="submit" className="todo-submit" disabled={disableAddTodo}>
           Add Todo
         </button>
 
@@ -30,6 +31,8 @@ const AddTodo = ({ submitTodo }) => {
 
 AddTodo.propTypes = {
   submitTodo: PropTypes.func.isRequired,
+  inputChanged: PropTypes.func.isRequired,
+  disableAddTodo: PropTypes.bool.isRequired,
 };
 
 export default AddTodo;

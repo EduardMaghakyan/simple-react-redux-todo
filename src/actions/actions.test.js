@@ -24,4 +24,14 @@ describe('Actions', () => {
 
     expect(actions.deleteTodo(1)).toEqual(expectedAction);
   });
+
+  it('Creates action when input is changed', () => {
+    const inputText = 'To-Do Goes here';
+    const expectedAction = {
+      type: types.INPUT_CHANGED,
+      inputText,
+    };
+
+    expect(actions.inputChanged(inputText)).toEqual(expectedAction);
+  });
 });
