@@ -5,7 +5,15 @@ import AddTodo from './components/addTodo';
 import TodoList from './components/todoList';
 import actions from './actions/';
 
-export const App = ({ submitTodo, todos, deleteTodo, inputChanged, disableAddTodo, undoLastDelete, disableUndo }) => (
+export const App = ({
+  submitTodo,
+  todos,
+  deleteTodo,
+  inputChanged,
+  disableAddTodo,
+  undoLastDelete,
+  disableUndo,
+}) => (
   <div>
     <h1>To-Do List</h1>
     <AddTodo
