@@ -3,6 +3,7 @@ import types from '../constants';
 export const initialState = {
   todos: [],
   disableAddTodo: true,
+  disableUndo: true,
   deleted: {},
 };
 
@@ -29,6 +30,7 @@ export const reducer = (state = initialState, action) => {
           )),
         ],
         deleted: state.todos.filter(todo => todo.id === action.id)[0],
+        disableUndo: false,
       };
 
     case types.INPUT_CHANGED:
@@ -45,6 +47,7 @@ export const reducer = (state = initialState, action) => {
           state.deleted,
         ],
         deleted: {},
+        disableUndo: true,
       };
 
     default:

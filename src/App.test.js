@@ -20,6 +20,7 @@ it('App renders without crashing', () => {
       inputChanged={changeMock}
       disableAddTodo
       undoLastDelete={undoLastDelete}
+      disableUndo
     />,
   );
 

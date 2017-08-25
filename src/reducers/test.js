@@ -26,6 +26,7 @@ describe('Reducer', () => {
           },
         ],
         disableAddTodo: true,
+        disableUndo: true,
         deleted: {},
       };
 
@@ -43,6 +44,7 @@ describe('Reducer', () => {
           },
         ],
         disableAddTodo: true,
+        disableUndo: true,
         deleted: {},
       };
 
@@ -54,6 +56,7 @@ describe('Reducer', () => {
       const expectedState = {
         todos: [],
         disableAddTodo: true,
+        disableUndo: false,
         deleted: {
           id: 1,
           text: todoText,
@@ -69,6 +72,7 @@ describe('Reducer', () => {
       const startingState = {
         todos: [],
         disableAddTodo: true,
+        disableUndo: true,
         deleted: {},
       };
 
@@ -80,6 +84,7 @@ describe('Reducer', () => {
       const expectedState = {
         todos: [],
         disableAddTodo: true,
+        disableUndo: true,
         deleted: {},
       };
 
@@ -90,6 +95,7 @@ describe('Reducer', () => {
       const startingState = {
         todos: [],
         disableAddTodo: true,
+        disableUndo: true,
         deleted: {},
       };
 
@@ -101,6 +107,7 @@ describe('Reducer', () => {
       const expectedState = {
         todos: [],
         disableAddTodo: false,
+        disableUndo: true,
         deleted: {},
       };
 
@@ -113,6 +120,7 @@ describe('Reducer', () => {
       const startingState = {
         todos: [],
         disableAddTodo: true,
+        disableUndo: true,
         deleted: {
           id: 1,
           text: todoText,
@@ -131,6 +139,7 @@ describe('Reducer', () => {
           },
         ],
         disableAddTodo: true,
+        disableUndo: true,
         deleted: {},
       };
 

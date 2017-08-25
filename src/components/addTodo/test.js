@@ -17,6 +17,7 @@ describe('AddTodo Component', () => {
         inputChanged={changeMock}
         disableAddTodo
         undoLastDelete={undoLastDelete}
+        disableUndo
       />,
     );
 
@@ -26,6 +27,7 @@ describe('AddTodo Component', () => {
         inputChanged={changeMock}
         disableAddTodo
         undoLastDelete={undoLastDelete}
+        disableUndo
       />,
     );
   });
@@ -60,6 +62,7 @@ describe('AddTodo Component', () => {
         inputChanged={changeMock}
         disableAddTodo={false}
         undoLastDelete={undoLastDelete}
+        disableUndo
       />,
     );
     const disabled = component.find('.todo-submit').html().includes('disabled=""');
@@ -75,6 +78,34 @@ describe('AddTodo Component', () => {
       expect(undoLastDelete.mock.calls.length).toEqual(0);
       component.find('.todo-undo').simulate('click');
       expect(undoLastDelete.mock.calls.length).toEqual(1);
+    });
+
+    it('Should be disabled.', () => {
+      component = shallow(
+        <AddTodo
+          submitTodo={submitMock}
+          inputChanged={changeMock}
+          disableAddTodo
+          undoLastDelete={undoLastDelete}
+          disableUndo
+        />,
+      );
+      const disabled = component.find('.todo-undo').html().includes('disabled=""');
+      expect(disabled).toEqual(true);
+    });
+
+    it('Should NOT be disabled.', () => {
+      component = shallow(
+        <AddTodo
+          submitTodo={submitMock}
+          inputChanged={changeMock}
+          disableAddTodo
+          undoLastDelete={undoLastDelete}
+          disableUndo={false}
+        />,
+      );
+      const disabled = component.find('.todo-undo').html().includes('disabled=""');
+      expect(disabled).toEqual(false);
     });
   });
 });

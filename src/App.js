@@ -5,7 +5,7 @@ import AddTodo from './components/addTodo';
 import TodoList from './components/todoList';
 import actions from './actions/';
 
-export const App = ({ submitTodo, todos, deleteTodo, inputChanged, disableAddTodo, undoLastDelete }) => (
+export const App = ({ submitTodo, todos, deleteTodo, inputChanged, disableAddTodo, undoLastDelete, disableUndo }) => (
   <div>
     <h1>To-Do List</h1>
     <AddTodo
@@ -13,6 +13,7 @@ export const App = ({ submitTodo, todos, deleteTodo, inputChanged, disableAddTod
       inputChanged={inputChanged}
       disableAddTodo={disableAddTodo}
       undoLastDelete={undoLastDelete}
+      disableUndo={disableUndo}
     />
     <TodoList todos={todos} deleteTodo={deleteTodo} />
   </div>
@@ -30,6 +31,7 @@ App.propTypes = {
   inputChanged: PropTypes.func.isRequired,
   disableAddTodo: PropTypes.bool.isRequired,
   undoLastDelete: PropTypes.func.isRequired,
+  disableUndo: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => state.todoListApp;
