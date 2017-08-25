@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const AddTodo = ({ submitTodo, inputChanged, disableAddTodo, undoLastDelete, disableUndo }) => {
+const AddTodo = ({submitTodo, inputChanged, disableAddTodo, undoLastDelete, disableUndo}) => {
   let input;
   return (
     <div>
       <form
+        className="add-todo"
         onSubmit={(event) => {
           event.preventDefault();
           submitTodo(input.value);
@@ -13,6 +14,7 @@ const AddTodo = ({ submitTodo, inputChanged, disableAddTodo, undoLastDelete, dis
         }}
       >
         <input
+          placeholder="Add new task..."
           className="todo-input"
           ref={(element) => {
             input = element;
@@ -20,14 +22,15 @@ const AddTodo = ({ submitTodo, inputChanged, disableAddTodo, undoLastDelete, dis
           onChange={() => inputChanged(input.value)}
         />
 
-        <button type="submit" className="todo-submit" disabled={disableAddTodo}>
-          Add Todo
-        </button>
+        <div className="todo-actions">
+          <button type="submit" className="todo-submit button" disabled={disableAddTodo}>
+            Add Todo
+          </button>
 
-        <button className="todo-undo" onClick={undoLastDelete} disabled={disableUndo}>
-          Undo
-        </button>
-
+          <button className="todo-undo button" onClick={undoLastDelete} disabled={disableUndo}>
+            Undo
+          </button>
+        </div>
       </form>
     </div>
   );

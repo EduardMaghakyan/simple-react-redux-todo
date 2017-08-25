@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const TodoList = ({ todos, deleteTodo }) => {
+const TodoList = ({todos, deleteTodo}) => {
   const todoItems = todos.map(todo => (
     <li key={todo.id}>
       <button
@@ -9,16 +9,18 @@ const TodoList = ({ todos, deleteTodo }) => {
         className="todo-delete"
         onClick={() => deleteTodo(todo.id)}
       >
-        Delete
+        X
       </button>
       <span className="todo-text">{todo.text}</span>
     </li>
   ));
 
   return (
-    <ul>
-      {todoItems}
-    </ul>
+    <div className="task-list">
+      <ul>
+        {todoItems}
+      </ul>
+    </div>
   );
 };
 

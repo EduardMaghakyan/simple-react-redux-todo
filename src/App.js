@@ -14,8 +14,10 @@ export const App = ({
   undoLastDelete,
   disableUndo,
 }) => (
-  <div>
-    <h1>To-Do List</h1>
+  <div className="app">
+    <div className="header">
+      <h2>To-Do List</h2>
+    </div>
     <AddTodo
       submitTodo={submitTodo}
       inputChanged={inputChanged}
