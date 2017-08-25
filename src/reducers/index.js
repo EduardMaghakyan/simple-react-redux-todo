@@ -3,6 +3,7 @@ import types from '../constants';
 export const initialState = {
   todos: [],
   disableAddTodo: true,
+  deleted: {},
 };
 
 export const reducer = (state = initialState, action) => {
@@ -27,12 +28,23 @@ export const reducer = (state = initialState, action) => {
             todo.id !== action.id
           )),
         ],
+        deleted: state.todos.filter(todo => todo.id === action.id)[0],
       };
 
     case types.INPUT_CHANGED:
       return {
         ...state,
         disableAddTodo: action.inputText === '',
+      };
+
+    case types.UNDO_DELETE:
+      return {
+        ...state,
+        todos: [
+          ...state.todos,
+          state.deleted,
+        ],
+        deleted: {},
       };
 
     default:

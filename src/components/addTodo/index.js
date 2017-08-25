@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const AddTodo = ({ submitTodo, inputChanged, disableAddTodo }) => {
+const AddTodo = ({ submitTodo, inputChanged, disableAddTodo, undoLastDelete }) => {
   let input;
   return (
     <div>
@@ -24,6 +24,10 @@ const AddTodo = ({ submitTodo, inputChanged, disableAddTodo }) => {
           Add Todo
         </button>
 
+        <button type="submit" className="todo-undo" onClick={undoLastDelete}>
+          Undo
+        </button>
+
       </form>
     </div>
   );
@@ -33,6 +37,7 @@ AddTodo.propTypes = {
   submitTodo: PropTypes.func.isRequired,
   inputChanged: PropTypes.func.isRequired,
   disableAddTodo: PropTypes.bool.isRequired,
+  undoLastDelete: PropTypes.func.isRequired,
 };
 
 export default AddTodo;

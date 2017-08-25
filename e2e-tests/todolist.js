@@ -37,4 +37,17 @@ describe('TodoList App', () => {
 
     expect(actual.state).to.equal('failure');
   });
+
+  it('Undo delete should be disabled', () => {
+    expect(browser.isEnabled('.todo-undo')).to.equal(false);
+  });
+
+  it('Should undo last delete.', () => {
+    browser.element('.todo-input').setValue(todoText);
+    browser.click('.todo-submit');
+    browser.click('.todo-delete');
+    browser.click('.todo-undo');
+    const actual = browser.element('.todo-text').getText();
+    expect(actual).to.equal(todoText);
+  });
 });

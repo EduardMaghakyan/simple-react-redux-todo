@@ -8,6 +8,7 @@ describe('AddTodo Component', () => {
   let mountedComponent;
   const submitMock = jest.fn();
   const changeMock = jest.fn();
+  const undoLastDelete = jest.fn();
 
   beforeEach(() => {
     component = shallow(
@@ -15,6 +16,7 @@ describe('AddTodo Component', () => {
         submitTodo={submitMock}
         inputChanged={changeMock}
         disableAddTodo
+        undoLastDelete={undoLastDelete}
       />,
     );
 
@@ -23,6 +25,7 @@ describe('AddTodo Component', () => {
         submitTodo={submitMock}
         inputChanged={changeMock}
         disableAddTodo
+        undoLastDelete={undoLastDelete}
       />,
     );
   });
@@ -56,9 +59,22 @@ describe('AddTodo Component', () => {
         submitTodo={submitMock}
         inputChanged={changeMock}
         disableAddTodo={false}
+        undoLastDelete={undoLastDelete}
       />,
     );
     const disabled = component.find('.todo-submit').html().includes('disabled=""');
     expect(disabled).toEqual(false);
+  });
+
+  describe('Undo button', () => {
+    it('Should exist', () => {
+      expect(component.find('.todo-undo').length).toEqual(1);
+    });
+
+    it('Should call undoDelete function', () => {
+      expect(undoLastDelete.mock.calls.length).toEqual(0);
+      component.find('.todo-undo').simulate('click');
+      expect(undoLastDelete.mock.calls.length).toEqual(1);
+    });
   });
 });

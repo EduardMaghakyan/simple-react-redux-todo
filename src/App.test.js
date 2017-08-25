@@ -9,6 +9,7 @@ it('App renders without crashing', () => {
   const submitMock = jest.fn();
   const deleteMock = jest.fn();
   const changeMock = jest.fn();
+  const undoLastDelete = jest.fn();
 
   const component = shallow(
     <App
@@ -18,6 +19,7 @@ it('App renders without crashing', () => {
       deleteTodo={deleteMock}
       inputChanged={changeMock}
       disableAddTodo
+      undoLastDelete={undoLastDelete}
     />,
   );
 

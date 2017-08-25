@@ -29,6 +29,12 @@ const actions = {
       inputText,
     };
   },
+
+  undoLastDelete() {
+    return {
+      type: types.UNDO_DELETE,
+    };
+  },
 };
 
 export default actions;

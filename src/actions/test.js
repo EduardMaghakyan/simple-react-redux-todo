@@ -34,4 +34,12 @@ describe('Actions', () => {
 
     expect(actions.inputChanged(inputText)).toEqual(expectedAction);
   });
+
+  it('Creates action to undo delete', () => {
+    const expectedAction = {
+      type: types.UNDO_DELETE,
+    };
+
+    expect(actions.undoLastDelete()).toEqual(expectedAction);
+  });
 });

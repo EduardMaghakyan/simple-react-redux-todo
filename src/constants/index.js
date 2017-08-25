@@ -2,6 +2,7 @@ const types = {
   SUBMIT_TODO: 'SUBMIT_TODO',
   DELETE_TODO: 'DELETE_TODO',
   INPUT_CHANGED: 'INPUT_CHANGED',
+  UNDO_DELETE: 'UNDO_DELETE',
 };
 
 export default types;
