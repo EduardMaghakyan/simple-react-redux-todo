@@ -1,12 +1,17 @@
 import { combineReducers, createStore } from 'redux';
-import todoListApp from './reducers';
+import todoListApp, { initialState } from './reducers';
 import { loadState, saveState } from './storage';
 
 const reducers = combineReducers({
   todoListApp,
 });
 
-const persistedState = loadState();
+const persistedState = {
+  todoListApp: {
+    ...initialState,
+    todos: loadState() ? loadState().todos : [],
+  },
+};
 
 const store = createStore(
   reducers,
@@ -14,7 +19,9 @@ const store = createStore(
 );
 
 store.subscribe(() => {
-  saveState(store.getState());
+  saveState({
+    todos: store.getState().todoListApp.todos,
+  });
 });
 
 export default store;

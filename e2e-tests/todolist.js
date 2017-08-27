@@ -35,7 +35,7 @@ describe('TodoList App', () => {
     browser.click('.todo-delete');
     const actual = browser.element('.todo-text');
 
-    expect(actual.state).to.equal('failure');
+    expect(actual.state).to.equal(undefined);
   });
 
   it('Undo delete should be disabled', () => {
