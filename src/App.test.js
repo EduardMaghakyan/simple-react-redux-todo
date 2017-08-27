@@ -5,6 +5,12 @@ import { shallow } from 'enzyme';
 import { App } from './App';
 import { initialState } from './reducers/';
 
+jest.mock('node-uuid', () => {
+  return {
+    v4: jest.fn(() => '1'),
+  };
+});
+
 it('App renders without crashing', () => {
   const submitMock = jest.fn();
   const deleteMock = jest.fn();

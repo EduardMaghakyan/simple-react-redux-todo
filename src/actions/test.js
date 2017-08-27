@@ -1,7 +1,13 @@
-/* global expect, it, describe */
+/* global expect, it, describe, jest */
 
 import actions from './index';
 import types from '../constants';
+
+jest.mock('node-uuid', () => {
+  return {
+    v4: jest.fn(() => '1'),
+  };
+});
 
 describe('Actions', () => {
   const todoText = 'A new todo';
@@ -9,7 +15,7 @@ describe('Actions', () => {
   it('Creates action to add todo', () => {
     const expectedAction = {
       type: types.SUBMIT_TODO,
-      id: 1,
+      id: '1',
       text: todoText,
     };
 

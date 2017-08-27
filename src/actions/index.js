@@ -1,9 +1,10 @@
+import { v4 } from 'node-uuid';
 import types from '../constants';
 
-let todoId = 0;
+let todoId;
 
 const nextId = () => {
-  todoId = todoId + 1;
+  todoId = v4();
   return todoId;
 };
 

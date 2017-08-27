@@ -1,7 +1,13 @@
 /* global describe, it, expect, jest */
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow} from 'enzyme';
 import TodoList from '.';
+
+jest.mock('node-uuid', () => {
+  return {
+    v4: jest.fn(() => '1'),
+  };
+});
 
 describe('Render list of todos', () => {
   const deleteMock = jest.fn();
@@ -9,7 +15,7 @@ describe('Render list of todos', () => {
   const props = {
     todos: [
       {
-        id: 1,
+        id: '1',
         text: 'First Todo',
       },
     ],
@@ -17,7 +23,7 @@ describe('Render list of todos', () => {
     deleteTodo: deleteMock,
   };
 
-  const component = shallow(<TodoList todos={props.todos} deleteTodo={props.deleteTodo} />);
+  const component = shallow(<TodoList todos={props.todos} deleteTodo={props.deleteTodo}/>);
 
   it('Should render todo list', () => {
     expect(component.exists()).toEqual(true);
