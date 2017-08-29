@@ -4,6 +4,7 @@ import { PropTypes } from 'prop-types';
 import AddTodo from '../addTodo';
 import TodoList from '../todoList';
 import actions from '../../actions/';
+import Filters from '../filters';
 
 export const App = ({
   submitTodo,
@@ -25,6 +26,7 @@ export const App = ({
       undoLastDelete={undoLastDelete}
       disableUndo={disableUndo}
     />
+    <Filters />
     <TodoList todos={todos} deleteTodo={deleteTodo} />
   </div>
 );
