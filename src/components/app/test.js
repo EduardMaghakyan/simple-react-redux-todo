@@ -13,6 +13,7 @@ it('App renders without crashing', () => {
   const deleteMock = jest.fn();
   const changeMock = jest.fn();
   const undoLastDelete = jest.fn();
+  const toggleTodo = jest.fn();
 
   const component = shallow(
     <App
@@ -24,6 +25,7 @@ it('App renders without crashing', () => {
       disableAddTodo
       undoLastDelete={undoLastDelete}
       disableUndo
+      toggleTodo={toggleTodo}
     />,
   );
 

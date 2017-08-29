@@ -50,4 +50,14 @@ describe('TodoList App', () => {
     const actual = browser.element('.todo-text').getText();
     expect(actual).to.equal(todoText);
   });
+
+  it('Should toggle todo.', () => {
+    browser.element('.todo-input').setValue(todoText);
+    browser.click('.todo-submit');
+    browser.click('.todo-text');
+    const actual = browser.element('.todo-text');
+    expect(actual.getAttribute('style')).to.equal('text-decoration: line-through;');
+    browser.click('.todo-text');
+    expect(actual.getAttribute('style')).to.equal('text-decoration: none;');
+  });
 });

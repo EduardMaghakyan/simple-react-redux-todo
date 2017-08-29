@@ -23,6 +23,7 @@ describe('Reducer', () => {
           {
             id: 1,
             text: todoText,
+            completed: false,
           },
         ],
         disableAddTodo: true,
@@ -41,6 +42,7 @@ describe('Reducer', () => {
           {
             id: 1,
             text: todoText,
+            completed: false,
           },
         ],
         disableAddTodo: true,
@@ -60,6 +62,7 @@ describe('Reducer', () => {
         deleted: {
           id: 1,
           text: todoText,
+          completed: false,
         },
       };
 
@@ -124,6 +127,7 @@ describe('Reducer', () => {
         deleted: {
           id: 1,
           text: todoText,
+          completed: false,
         },
       };
 
@@ -136,6 +140,7 @@ describe('Reducer', () => {
           {
             id: 1,
             text: todoText,
+            completed: false,
           },
         ],
         disableAddTodo: true,
@@ -143,6 +148,40 @@ describe('Reducer', () => {
         deleted: {},
       };
 
+      expect(reducer(startingState, action)).toEqual(expectedState);
+    });
+  });
+
+  describe('Toggle todos', () => {
+    it('Mark todo as completed', () => {
+      const startingState = {
+        todos: [
+          {
+            id: 1,
+            text: todoText,
+            completed: false,
+          },
+        ],
+        disableAddTodo: true,
+        disableUndo: true,
+        deleted: {},
+      };
+
+      const expectedState = {
+        ...startingState,
+        todos: [
+          {
+            id: 1,
+            text: todoText,
+            completed: true,
+          },
+        ],
+      };
+
+      const action = {
+        type: types.TOGGLE_TODO,
+        id: 1,
+      };
       expect(reducer(startingState, action)).toEqual(expectedState);
     });
   });

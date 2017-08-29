@@ -14,6 +14,7 @@ export const App = ({
   disableAddTodo,
   undoLastDelete,
   disableUndo,
+  toggleTodo,
 }) => (
   <div className="app">
     <div className="header">
@@ -27,7 +28,7 @@ export const App = ({
       disableUndo={disableUndo}
     />
     <Filters />
-    <TodoList todos={todos} deleteTodo={deleteTodo} />
+    <TodoList todos={todos} deleteTodo={deleteTodo} toggleTodo={toggleTodo} />
   </div>
 );
 
@@ -37,6 +38,7 @@ App.propTypes = {
     {
       id: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired,
+      completed: PropTypes.bool.isRequired,
     },
   )).isRequired,
   deleteTodo: PropTypes.func.isRequired,
@@ -44,6 +46,7 @@ App.propTypes = {
   disableAddTodo: PropTypes.bool.isRequired,
   undoLastDelete: PropTypes.func.isRequired,
   disableUndo: PropTypes.bool.isRequired,
+  toggleTodo: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => state.todoListApp;
@@ -65,6 +68,10 @@ const mapDispatchToProps = dispatch => ({
 
   undoLastDelete: () => {
     dispatch(actions.undoLastDelete());
+  },
+
+  toggleTodo: (id) => {
+    dispatch(actions.toggleTodo(id));
   },
 });
 

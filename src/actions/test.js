@@ -44,4 +44,13 @@ describe('Actions', () => {
 
     expect(actions.undoLastDelete()).toEqual(expectedAction);
   });
+
+  it('Creates action to toggle todo', () => {
+    const expectedAction = {
+      type: types.TOGGLE_TODO,
+      id: 1,
+    };
+
+    expect(actions.toggleTodo(1)).toEqual(expectedAction);
+  });
 });

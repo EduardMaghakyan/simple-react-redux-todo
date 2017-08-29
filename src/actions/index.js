@@ -36,6 +36,13 @@ const actions = {
       type: types.UNDO_DELETE,
     };
   },
+
+  toggleTodo(id) {
+    return {
+      type: types.TOGGLE_TODO,
+      id,
+    };
+  },
 };
 
 export default actions;

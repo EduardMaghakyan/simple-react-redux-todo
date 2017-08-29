@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const AddTodo = ({submitTodo, inputChanged, disableAddTodo, undoLastDelete, disableUndo}) => {
+const AddTodo = ({ submitTodo, inputChanged, disableAddTodo, undoLastDelete, disableUndo }) => {
   let input;
   return (
     <div>

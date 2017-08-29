@@ -17,6 +17,7 @@ export const reducer = (state = initialState, action) => {
           {
             id: action.id,
             text: action.text,
+            completed: false,
           },
         ],
       };
@@ -49,7 +50,16 @@ export const reducer = (state = initialState, action) => {
         deleted: {},
         disableUndo: true,
       };
-
+    case types.TOGGLE_TODO:
+      return {
+        ...state,
+        todos: state.todos.map((todo) => {
+          if (todo.id === action.id) {
+            todo.completed = !todo.completed;
+          }
+          return todo;
+        }),
+      };
     default:
       return state;
   }
