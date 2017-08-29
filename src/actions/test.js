@@ -3,11 +3,7 @@
 import actions from './index';
 import types from '../constants';
 
-jest.mock('node-uuid', () => {
-  return {
-    v4: jest.fn(() => '1'),
-  };
-});
+jest.mock('node-uuid', () => ({ v4: jest.fn(() => '1') }));
 
 describe('Actions', () => {
   const todoText = 'A new todo';

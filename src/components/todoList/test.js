@@ -3,11 +3,8 @@ import React from 'react';
 import { shallow} from 'enzyme';
 import TodoList from '.';
 
-jest.mock('node-uuid', () => {
-  return {
-    v4: jest.fn(() => '1'),
-  };
-});
+jest.mock('node-uuid', () => ({ v4: jest.fn(() => '1') }));
+
 
 describe('Render list of todos', () => {
   const deleteMock = jest.fn();
