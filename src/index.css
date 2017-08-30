@@ -143,3 +143,8 @@ body {
     width: 125px;
   }
 }
+
+.active {
+  text-decoration: none;
+  color: #000000;
+}

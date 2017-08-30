@@ -51,13 +51,29 @@ describe('TodoList App', () => {
     expect(actual).to.equal(todoText);
   });
 
-  it('Should toggle todo.', () => {
+  it('Should mark todo as complete.', () => {
     browser.element('.todo-input').setValue(todoText);
     browser.click('.todo-submit');
-    browser.click('.todo-text');
+    browser.element('.todo-text').click();
     const actual = browser.element('.todo-text');
-    expect(actual.getAttribute('style')).to.equal('text-decoration: line-through;');
-    browser.click('.todo-text');
-    expect(actual.getAttribute('style')).to.equal('text-decoration: none;');
+    expect(actual.state).to.equal('failure');
   });
+
+  it('Should filter completed todos', () => {
+    const secondTodoText = 'second todo text';
+    browser.element('.todo-input').setValue(todoText);
+    browser.click('.todo-submit');
+    browser.element('.todo-text').click();
+    browser.element('.todo-input').setValue(secondTodoText);
+    browser.click('.todo-submit');
+
+    browser.element('.todo-filters a:nth-child(3)').click();
+    const completed = browser.element('.todo-text').getText();
+    expect(completed).to.equal(todoText);
+
+    browser.element('.todo-filters a:nth-child(2)').click();
+    const active = browser.element('.todo-text').getText();
+    expect(active).to.equal(secondTodoText);
+  });
+
 });

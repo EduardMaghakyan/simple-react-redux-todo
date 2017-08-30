@@ -1,10 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import AddTodo from '../addTodo';
 import TodoList from '../todoList';
 import actions from '../../actions/';
 import Filters from '../filters';
+
+const getVisibleTodos = (todos, filter) => {
+  switch (filter) {
+    case 'all':
+      return todos;
+    case 'completed':
+      return todos.filter(t => t.completed);
+    case 'active':
+      return todos.filter(t => !t.completed);
+    default:
+      throw new Error(`Unknown filter: ${filter}.`);
+  }
+};
 
 export const App = ({
   submitTodo,
@@ -49,7 +63,11 @@ App.propTypes = {
   toggleTodo: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => state.todoListApp;
+const mapStateToProps = (state, ownProps) => ({
+  todos: getVisibleTodos(state.todoListApp.todos, ownProps.match.params.filter || 'active'),
+  disableUndo: state.todoListApp.disableUndo,
+  disableAddTodo: state.todoListApp.disableAddTodo,
+});
 
 const mapDispatchToProps = dispatch => ({
   submitTodo: (text) => {
@@ -75,4 +93,4 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

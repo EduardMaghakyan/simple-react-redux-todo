@@ -1,17 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 
+
 const FilterLink = ({ filter, children }) => (
-  <Link
-    to={filter === 'all' ? '/' : filter}
-    activeStyle={{
-      textDecoration: 'none',
-      color: 'black',
+  <NavLink
+    to={`/${filter}`}
+    activeClassName="active"
+    isActive={(match, location) => {
+      if (!match && location.pathname === '/' && children === 'All') {
+        return true;
+      }
+
+      return match;
     }}
   >
     {children}
-  </Link>
+  </NavLink>
 );
 
 FilterLink.propTypes = {

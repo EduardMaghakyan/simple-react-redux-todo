@@ -2,7 +2,7 @@ import React from 'react';
 import FilterLink from '../filterLink';
 
 const Filters = () => (
-  <div>
+  <div className="todo-filters">
     <FilterLink filter={'all'}>
       All
     </FilterLink>
