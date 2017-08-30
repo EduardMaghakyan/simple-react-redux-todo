@@ -14,7 +14,7 @@ const AddTodo = ({ submitTodo, inputChanged, disableAddTodo, undoLastDelete, dis
         }}
       >
         <input
-          placeholder="Add new task..."
+          placeholder="Add new todo..."
           className="todo-input"
           ref={(element) => {
             input = element;

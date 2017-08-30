@@ -56,7 +56,7 @@ describe('TodoList App', () => {
     browser.click('.todo-submit');
     browser.element('.todo-text').click();
     const actual = browser.element('.todo-text');
-    expect(actual.state).to.equal('failure');
+    expect(actual.getAttribute('style')).to.equal('text-decoration: line-through;');
   });
 
   it('Should filter completed todos', () => {

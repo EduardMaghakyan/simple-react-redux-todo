@@ -26,7 +26,7 @@ const TodoList = ({ todos, deleteTodo, toggleTodo }) => {
   ));
 
   return (
-    <div className="task-list">
+    <div className="todo-list">
       <ul>
         {todoItems}
       </ul>
