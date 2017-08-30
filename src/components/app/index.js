@@ -64,7 +64,7 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  todos: getVisibleTodos(state.todoListApp.todos, ownProps.match.params.filter || 'active'),
+  todos: getVisibleTodos(state.todoListApp.todos, ownProps.match.params.filter || 'all'),
   disableUndo: state.todoListApp.disableUndo,
   disableAddTodo: state.todoListApp.disableAddTodo,
 });
