@@ -7,6 +7,30 @@ export const initialState = {
   deleted: {},
 };
 
+const todo = (state, action) => {
+  switch (action.type) {
+    case types.SUBMIT_TODO:
+      return {
+        id: action.id,
+        text: action.text,
+        completed: false,
+      };
+    case types.TOGGLE_TODO:
+      if (state.id !== action.id) {
+        return state;
+      }
+      return {
+        ...state,
+        completed: !state.completed,
+      };
+    case types.DELETE_TODO:
+      return state.id !== action.id;
+
+    default:
+      return state;
+  }
+};
+
 const todos = (state = initialState, action) => {
   switch (action.type) {
     case types.SUBMIT_TODO:
@@ -14,23 +38,15 @@ const todos = (state = initialState, action) => {
         ...state,
         todos: [
           ...state.todos,
-          {
-            id: action.id,
-            text: action.text,
-            completed: false,
-          },
+          todo(undefined, action),
         ],
       };
 
     case types.DELETE_TODO:
       return {
         ...state,
-        todos: [
-          ...state.todos.filter(todo => (
-            todo.id !== action.id
-          )),
-        ],
-        deleted: state.todos.filter(todo => todo.id === action.id)[0],
+        todos: state.todos.filter(t => todo(t, action)),
+        deleted: state.todos.filter(t => t.id === action.id)[0],
         disableUndo: false,
       };
 
@@ -53,12 +69,7 @@ const todos = (state = initialState, action) => {
     case types.TOGGLE_TODO:
       return {
         ...state,
-        todos: state.todos.map((todo) => {
-          if (todo.id === action.id) {
-            todo.completed = !todo.completed;
-          }
-          return todo;
-        }),
+        todos: state.todos.map(t => todo(t, action)),
       };
     default:
       return state;
