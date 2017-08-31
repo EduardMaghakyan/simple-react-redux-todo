@@ -1,68 +1,13 @@
-import types from '../constants';
+import { combineReducers } from 'redux';
+import todos, * as fromTodos from './todos';
 
-export const initialState = {
-  todos: [],
-  disableAddTodo: true,
-  disableUndo: true,
-  deleted: {},
-};
+const todoApp = combineReducers({
+  todos,
+});
 
-export const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case types.SUBMIT_TODO:
-      return {
-        ...state,
-        todos: [
-          ...state.todos,
-          {
-            id: action.id,
-            text: action.text,
-            completed: false,
-          },
-        ],
-      };
+export default todoApp;
 
-    case types.DELETE_TODO:
-      return {
-        ...state,
-        todos: [
-          ...state.todos.filter(todo => (
-            todo.id !== action.id
-          )),
-        ],
-        deleted: state.todos.filter(todo => todo.id === action.id)[0],
-        disableUndo: false,
-      };
+export const appState = fromTodos.initialState;
 
-    case types.INPUT_CHANGED:
-      return {
-        ...state,
-        disableAddTodo: action.inputText === '',
-      };
-
-    case types.UNDO_DELETE:
-      return {
-        ...state,
-        todos: [
-          ...state.todos,
-          state.deleted,
-        ],
-        deleted: {},
-        disableUndo: true,
-      };
-    case types.TOGGLE_TODO:
-      return {
-        ...state,
-        todos: state.todos.map((todo) => {
-          if (todo.id === action.id) {
-            todo.completed = !todo.completed;
-          }
-          return todo;
-        }),
-      };
-    default:
-      return state;
-  }
-};
-
-export default reducer;
+export const getVisibleTodos = (state, filter) =>
+  fromTodos.getVisibleTodos(state.todos, filter);

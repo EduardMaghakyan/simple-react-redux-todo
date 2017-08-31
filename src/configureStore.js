@@ -1,30 +1,26 @@
 import throttle from 'lodash/throttle';
-import { combineReducers, createStore } from 'redux';
-import todoListApp, { initialState } from './reducers';
+import { createStore } from 'redux';
+import todoApp, { appState } from './reducers';
 import { loadState, saveState } from './storage';
 
 const configureStore = () => {
-  const reducers = combineReducers({
-    todoListApp,
-  });
-
   const storedState = loadState();
 
   const persistedState = {
-    todoListApp: {
-      ...initialState,
+    todos: {
+      ...appState,
       todos: storedState ? storedState.todos : [],
     },
   };
 
   const store = createStore(
-    reducers,
+    todoApp,
     persistedState,
   );
 
   store.subscribe(throttle(() => {
     saveState({
-      todos: store.getState().todoListApp.todos,
+      todos: store.getState().todos.todos,
     });
   }, 500));
 

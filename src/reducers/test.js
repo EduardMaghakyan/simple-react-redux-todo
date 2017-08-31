@@ -1,7 +1,7 @@
 /* global expect, it, describe */
 
 import types from '../constants';
-import { reducer, initialState } from '.';
+import reducer, { initialState } from './todos';
 
 describe('Reducer', () => {
   const todoText = 'A new todo';

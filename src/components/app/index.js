@@ -6,19 +6,7 @@ import AddTodo from '../addTodo';
 import TodoList from '../todoList';
 import actions from '../../actions/';
 import Filters from '../filters';
-
-const getVisibleTodos = (todos, filter) => {
-  switch (filter) {
-    case 'all':
-      return todos;
-    case 'completed':
-      return todos.filter(t => t.completed);
-    case 'active':
-      return todos.filter(t => !t.completed);
-    default:
-      throw new Error(`Unknown filter: ${filter}.`);
-  }
-};
+import { getVisibleTodos } from '../../reducers';
 
 export const App = ({
   submitTodo,
@@ -64,9 +52,9 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  todos: getVisibleTodos(state.todoListApp.todos, ownProps.match.params.filter || 'all'),
-  disableUndo: state.todoListApp.disableUndo,
-  disableAddTodo: state.todoListApp.disableAddTodo,
+  todos: getVisibleTodos(state.todos, ownProps.match.params.filter || 'all'),
+  disableUndo: state.todos.disableUndo,
+  disableAddTodo: state.todos.disableAddTodo,
 });
 
 const mapDispatchToProps = dispatch => ({
