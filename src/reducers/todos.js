@@ -1,3 +1,4 @@
+import { combineReducers } from 'redux';
 import types from '../constants';
 
 export const initialState = {
@@ -7,48 +8,14 @@ export const initialState = {
   deleted: {},
 };
 
-const todo = (state, action) => {
+const byId = (state = initialState, action) => {
   switch (action.type) {
-    case types.SUBMIT_TODO:
-      return {
-        id: action.id,
-        text: action.text,
-        completed: false,
-      };
-    case types.TOGGLE_TODO:
-      if (state.id !== action.id) {
-        return state;
-      }
-      return {
-        ...state,
-        completed: !state.completed,
-      };
-    case types.DELETE_TODO:
-      return state.id !== action.id;
-
-    default:
-      return state;
-  }
-};
-
-const todos = (state = initialState, action) => {
-  switch (action.type) {
-    case types.SUBMIT_TODO:
-      return {
-        ...state,
-        todos: [
-          ...state.todos,
-          todo(undefined, action),
-        ],
-      };
-
-    case types.DELETE_TODO:
-      return {
-        ...state,
-        todos: state.todos.filter(t => todo(t, action)),
-        deleted: state.todos.filter(t => t.id === action.id)[0],
-        disableUndo: false,
-      };
+    case types.RECEIVE_TODOS:
+      const nextState = { ...state };
+      action.response.forEach((todo) => {
+        nextState.todos[todo.id] = todo;
+      });
+      return nextState;
 
     case types.INPUT_CHANGED:
       return {
@@ -66,27 +33,61 @@ const todos = (state = initialState, action) => {
         deleted: {},
         disableUndo: true,
       };
-    case types.TOGGLE_TODO:
-      return {
-        ...state,
-        todos: state.todos.map(t => todo(t, action)),
-      };
     default:
       return state;
   }
 };
 
+const allIds = (state = [], action) => {
+  if (action.filter !== 'all') {
+    return state;
+  }
+  switch (action.type) {
+    case types.RECEIVE_TODOS:
+      return action.response.map(t => t.id);
+    default:
+      return state;
+  }
+};
+
+const activeIds = (state = [], action) => {
+  if (action.filter !== 'active') {
+    return state;
+  }
+  switch (action.type) {
+    case types.RECEIVE_TODOS:
+      return action.response.map(t => t.id);
+    default:
+      return state;
+  }
+};
+
+const completedIds = (state = [], action) => {
+  if (action.filter !== 'completed') {
+    return state;
+  }
+  switch (action.type) {
+    case types.RECEIVE_TODOS:
+      return action.response.map(t => t.id);
+    default:
+      return state;
+  }
+};
+
+const idsByFilter = combineReducers({
+  all: allIds,
+  active: activeIds,
+  completed: completedIds,
+});
+
+const todos = combineReducers({
+  byId,
+  idsByFilter,
+});
+
 export default todos;
 
 export const getVisibleTodos = (state, filter) => {
-  switch (filter) {
-    case 'all':
-      return state;
-    case 'completed':
-      return state.filter(t => t.completed);
-    case 'active':
-      return state.filter(t => !t.completed);
-    default:
-      throw new Error(`Unknown filter: ${filter}.`);
-  }
+  const ids = state.idsByFilter[filter];
+  return ids.map(id => state.byId.todos[id]);
 };

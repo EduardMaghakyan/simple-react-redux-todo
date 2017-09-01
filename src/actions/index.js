@@ -10,7 +10,7 @@ const nextId = () => {
 };
 
 const receiveTodos = (filter, response) => ({
-  type: types.RECEIVE_TODO,
+  type: types.RECEIVE_TODOS,
   filter,
   response,
 });

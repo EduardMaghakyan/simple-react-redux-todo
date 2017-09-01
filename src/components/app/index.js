@@ -68,8 +68,8 @@ const mapStateToProps = (state, ownProps) => {
   const todoFilter = ownProps.match.params.filter || 'all';
   return {
     todos: getVisibleTodos(state.todos, todoFilter),
-    disableUndo: state.todos.disableUndo,
-    disableAddTodo: state.todos.disableAddTodo,
+    disableUndo: state.todos.byId.disableUndo,
+    disableAddTodo: state.todos.byId.disableAddTodo,
     filter: todoFilter,
   };
 };
