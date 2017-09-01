@@ -1,7 +1,5 @@
-import throttle from 'lodash/throttle';
 import { createStore } from 'redux';
-import todoApp, { appState } from './reducers';
-import { loadState, saveState } from './storage';
+import todoApp from './reducers';
 
 const addLoggingToDispatch = (store) => {
   /* eslint-disable no-console */
@@ -22,30 +20,25 @@ const addLoggingToDispatch = (store) => {
   /* eslint-enable no-console */
 };
 
-const configureStore = () => {
-  const storedState = loadState();
 
-  const persistedState = {
-    todos: {
-      ...appState,
-      todos: storedState ? storedState.todos : [],
-    },
+const addPromiseSupportToDispatch = (store) => {
+  const rawDispatch = store.dispatch;
+  return (action) => {
+    if (typeof action.then === 'function') {
+      return action.then(rawDispatch);
+    }
+    return rawDispatch(action);
   };
+};
 
-  const store = createStore(
-    todoApp,
-    persistedState,
-  );
+const configureStore = () => {
+  const store = createStore(todoApp);
 
   if (process.env.NODE_ENV !== 'production') {
     store.dispatch = addLoggingToDispatch(store);
   }
 
-  store.subscribe(throttle(() => {
-    saveState({
-      todos: store.getState().todos.todos,
-    });
-  }, 500));
+  store.dispatch = addPromiseSupportToDispatch(store);
 
   return store;
 };

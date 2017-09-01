@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { withRouter } from 'react-router-dom';
@@ -8,31 +8,42 @@ import actions from '../../actions/';
 import Filters from '../filters';
 import { getVisibleTodos } from '../../reducers';
 
-export const App = ({
-  submitTodo,
-  todos,
-  deleteTodo,
-  inputChanged,
-  disableAddTodo,
-  undoLastDelete,
-  disableUndo,
-  toggleTodo,
-}) => (
-  <div className="app">
-    <div className="header">
-      <h2>To-Do List</h2>
-    </div>
-    <AddTodo
-      submitTodo={submitTodo}
-      inputChanged={inputChanged}
-      disableAddTodo={disableAddTodo}
-      undoLastDelete={undoLastDelete}
-      disableUndo={disableUndo}
-    />
-    <Filters />
-    <TodoList todos={todos} deleteTodo={deleteTodo} toggleTodo={toggleTodo} />
-  </div>
-);
+class App extends Component {
+  componentDidMount() {
+    this.fetchData();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.filter !== prevProps.filter) {
+      this.fetchData();
+    }
+  }
+
+  fetchData() {
+    const { filter, fetchTodos } = this.props;
+    fetchTodos(filter);
+  }
+
+  render() {
+    return (
+      <div className="app">
+        <div className="header">
+          <h2>To-Do List</h2>
+        </div>
+        <AddTodo
+          {...this.props}
+          disableAddTodo={this.props.disableAddTodo}
+          disableUndo={this.props.disableUndo}
+        />
+        <Filters />
+        <TodoList
+          {...this.props}
+          todos={this.props.todos}
+        />
+      </div>
+    );
+  }
+}
 
 App.propTypes = {
   submitTodo: PropTypes.func.isRequired,
@@ -49,36 +60,20 @@ App.propTypes = {
   undoLastDelete: PropTypes.func.isRequired,
   disableUndo: PropTypes.bool.isRequired,
   toggleTodo: PropTypes.func.isRequired,
+  filter: PropTypes.string.isRequired,
+  fetchTodos: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  todos: getVisibleTodos(state.todos, ownProps.match.params.filter || 'all'),
-  disableUndo: state.todos.disableUndo,
-  disableAddTodo: state.todos.disableAddTodo,
-});
+const mapStateToProps = (state, ownProps) => {
+  const todoFilter = ownProps.match.params.filter || 'all';
+  return {
+    todos: getVisibleTodos(state.todos, todoFilter),
+    disableUndo: state.todos.disableUndo,
+    disableAddTodo: state.todos.disableAddTodo,
+    filter: todoFilter,
+  };
+};
 
-const mapDispatchToProps = dispatch => ({
-  submitTodo: (text) => {
-    if (text) {
-      dispatch(actions.submitTodo(text));
-    }
-  },
+App = withRouter(connect(mapStateToProps, actions)(App));
 
-  inputChanged: (text) => {
-    dispatch(actions.inputChanged(text));
-  },
-
-  deleteTodo: (id) => {
-    dispatch(actions.deleteTodo(id));
-  },
-
-  undoLastDelete: () => {
-    dispatch(actions.undoLastDelete());
-  },
-
-  toggleTodo: (id) => {
-    dispatch(actions.toggleTodo(id));
-  },
-});
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default App;

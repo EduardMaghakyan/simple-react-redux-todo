@@ -1,5 +1,6 @@
 import { v4 } from 'node-uuid';
 import types from '../constants';
+import * as api from '../api';
 
 let todoId;
 
@@ -8,7 +9,18 @@ const nextId = () => {
   return todoId;
 };
 
+const receiveTodos = (filter, response) => ({
+  type: types.RECEIVE_TODO,
+  filter,
+  response,
+});
+
 const actions = {
+
+  fetchTodos(filter) {
+    return api.fetchTodos(filter).then(response => receiveTodos(filter, response));
+  },
+
   submitTodo(text) {
     return {
       type: types.SUBMIT_TODO,
