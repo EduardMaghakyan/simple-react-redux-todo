@@ -47,7 +47,7 @@ describe('Actions', () => {
 
   it('Creates action to toggle todo', () => {
     const expectedAction = {
-      type: types.TOGGLE_TODO,
+      type: types.TOGGLE_TODO_SUCCESS,
       id: 1,
     };
 

@@ -8,21 +8,18 @@ export const initialState = {
 };
 
 const byId = (state = initialState, action) => {
+  if (action.response) {
+    const newTodos = {
+      ...state.todos,
+      ...action.response.entities.todos,
+    };
+    return {
+      ...state,
+      todos: newTodos,
+    };
+  }
+
   switch (action.type) {
-    case types.FETCH_TODOS_SUCCESS:
-      const nextState = { ...state };
-      action.response.forEach((todo) => {
-        nextState.todos[todo.id] = todo;
-      });
-      return nextState;
-
-    case types.SUBMIT_TODO_SUCCESS:
-    case types.TOGGLE_TODO:
-      state.todos[action.response.id] = action.response;
-      return {
-        ...state,
-      };
-
     case types.INPUT_CHANGED:
       return {
         ...state,

@@ -179,7 +179,7 @@ describe('Reducer', () => {
       };
 
       const action = {
-        type: types.TOGGLE_TODO,
+        type: types.TOGGLE_TODO_SUCCESS,
         id: 1,
       };
       expect(reducer(startingState, action)).toEqual(expectedState);

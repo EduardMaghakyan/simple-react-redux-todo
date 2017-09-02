@@ -1,3 +1,5 @@
+import { normalize } from 'normalizr';
+import * as schema from './schema';
 import types from '../constants';
 import * as api from '../api';
 import { getIsFetching } from '../reducers';
@@ -18,7 +20,7 @@ const actions = {
           dispatch({
             type: types.FETCH_TODOS_SUCCESS,
             filter,
-            response,
+            response: normalize(response, schema.arrayOfTodos),
           });
         },
         (error) => {
@@ -37,7 +39,7 @@ const actions = {
       api.addTodo(text).then((response) => {
         dispatch({
           type: types.SUBMIT_TODO_SUCCESS,
-          response,
+          response: normalize(response, schema.todo),
         });
       });
     };
@@ -67,8 +69,8 @@ const actions = {
     return (dispatch) => {
       api.toggleTodo(id).then((response) => {
         dispatch({
-          type: types.TOGGLE_TODO,
-          response,
+          type: types.TOGGLE_TODO_SUCCESS,
+          response: normalize(response, schema.todo),
         });
       });
     };
