@@ -9,7 +9,7 @@ export const initialState = {
 
 const byId = (state = initialState, action) => {
   switch (action.type) {
-    case types.RECEIVE_TODOS:
+    case types.FETCH_TODOS_SUCCESS:
       const nextState = { ...state };
       action.response.forEach((todo) => {
         nextState.todos[todo.id] = todo;

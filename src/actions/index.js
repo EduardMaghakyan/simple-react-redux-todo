@@ -10,31 +10,33 @@ const nextId = () => {
   return todoId;
 };
 
-const receiveTodos = (filter, response) => ({
-  type: types.RECEIVE_TODOS,
-  filter,
-  response,
-});
-
-const requestTodos = (filter) => {
-  return {
-    type: types.REQUEST_TODOS,
-    filter,
-  };
-};
-
 const actions = {
 
   fetchTodos(filter) {
     return (dispatch, getState) => {
-      console.log(getState());
       if (getIsFetching(getState(), filter)) {
         return Promise.resolve();
       }
-      dispatch(requestTodos(filter));
-      return api.fetchTodos(filter).then((response) => {
-        dispatch(receiveTodos(filter, response));
+      dispatch({
+        type: types.FETCH_TODOS_REQUEST,
+        filter,
       });
+      return api.fetchTodos(filter).then(
+        (response) => {
+          dispatch({
+            type: types.FETCH_TODOS_SUCCESS,
+            filter,
+            response,
+          });
+        },
+        (error) => {
+          dispatch({
+            type: types.FETCH_TODOS_FAILURE,
+            filter,
+            message: error.message || 'Something went terribly wrong!',
+          });
+        },
+      );
     };
   },
 

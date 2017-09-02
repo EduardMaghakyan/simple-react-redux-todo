@@ -4,9 +4,10 @@ import { PropTypes } from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import AddTodo from '../addTodo';
 import TodoList from '../todoList';
+import FetchError from '../fetchError';
 import actions from '../../actions/';
 import Filters from '../filters';
-import { getVisibleTodos, getIsFetching } from '../../reducers';
+import { getVisibleTodos, getIsFetching, getErrorMessage } from '../../reducers';
 
 class App extends Component {
   componentDidMount() {
@@ -25,9 +26,18 @@ class App extends Component {
   }
 
   render() {
-    const { isFetching, todos } = this.props;
+    const { isFetching, errorMessage, todos } = this.props;
     if (isFetching && !todos.length) {
       return <p>Loading...</p>;
+    }
+
+    if (errorMessage && !todos.length) {
+      return (
+        <FetchError
+          message={errorMessage}
+          onRetry={() => this.fetchData()}
+        />
+      );
     }
     return (
       <div className="app">
@@ -77,6 +87,7 @@ const mapStateToProps = (state, ownProps) => {
     disableAddTodo: state.byId.disableAddTodo,
     filter: todoFilter,
     isFetching: getIsFetching(state, todoFilter),
+    errorMessage: getErrorMessage(state, todoFilter),
   };
 };
 
