@@ -3,12 +3,15 @@ import types from '../constants';
 
 const createList = (filter) => {
   const ids = (state = [], action) => {
-    if (action.filter !== filter) {
-      return state;
-    }
     switch (action.type) {
       case types.FETCH_TODOS_SUCCESS:
-        return action.response.map(t => t.id);
+        return action.filter === filter ?
+          action.response.map(t => t.id) :
+          state;
+      case types.SUBMIT_TODO_SUCCESS:
+        return filter !== 'completed' ?
+          [...state, action.response.id] :
+          state;
       default:
         return state;
     }

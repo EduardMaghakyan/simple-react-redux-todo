@@ -1,14 +1,6 @@
-import { v4 } from 'node-uuid';
 import types from '../constants';
 import * as api from '../api';
 import { getIsFetching } from '../reducers';
-
-let todoId;
-
-const nextId = () => {
-  todoId = v4();
-  return todoId;
-};
 
 const actions = {
 
@@ -41,10 +33,13 @@ const actions = {
   },
 
   submitTodo(text) {
-    return {
-      type: types.SUBMIT_TODO,
-      id: nextId(),
-      text,
+    return (dispatch) => {
+      api.addTodo(text).then((response) => {
+        dispatch({
+          type: types.SUBMIT_TODO_SUCCESS,
+          response,
+        });
+      });
     };
   },
 

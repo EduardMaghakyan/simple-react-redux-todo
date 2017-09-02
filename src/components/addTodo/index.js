@@ -19,11 +19,15 @@ const AddTodo = ({ submitTodo, inputChanged, disableAddTodo, undoLastDelete, dis
           ref={(element) => {
             input = element;
           }}
-          onChange={() => inputChanged(input.value)}
+          // onChange={() => inputChanged(input.value)}
         />
 
         <div className="todo-actions">
-          <button type="submit" className="todo-submit button" disabled={disableAddTodo}>
+          <button
+            type="submit"
+            className="todo-submit button"
+            // disabled={disableAddTodo}
+          >
             Add Todo
           </button>
 

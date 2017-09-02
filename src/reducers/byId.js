@@ -16,6 +16,12 @@ const byId = (state = initialState, action) => {
       });
       return nextState;
 
+    case types.SUBMIT_TODO_SUCCESS:
+      state.todos[action.response.id] = action.response;
+      return {
+        ...state,
+      };
+
     case types.INPUT_CHANGED:
       return {
         ...state,

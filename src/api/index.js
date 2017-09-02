@@ -24,9 +24,6 @@ const delay = ms =>
 
 export const fetchTodos = filter =>
   delay(500).then(() => {
-    if (Math.random() > 0.5) {
-      throw new Error('boom!');
-    }
     switch (filter) {
       case 'all':
         return fakeDatabase.todos;
@@ -39,3 +36,21 @@ export const fetchTodos = filter =>
     }
   });
 
+
+export const addTodo = (text) =>
+  delay(500).then(() => {
+    const todo = {
+      id: v4(),
+      text,
+      completed: false,
+    };
+    fakeDatabase.todos.push(todo);
+    return todo;
+  });
+
+export const toggleTodo = (id) =>
+  delay(500).then(() => {
+    const todo = fakeDatabase.todos.find(t => t.id === id);
+    todo.completed = !todo.completed;
+    return todo;
+  });
