@@ -39,4 +39,4 @@ const byId = (state = initialState, action) => {
 
 export default byId;
 
-export const getTodo = (state, id) => state[id];
+export const getTodo = (state, id) => state.todos[id];

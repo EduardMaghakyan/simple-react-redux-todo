@@ -1,6 +1,7 @@
 import { v4 } from 'node-uuid';
 import types from '../constants';
 import * as api from '../api';
+import { getIsFetching } from '../reducers';
 
 let todoId;
 
@@ -15,10 +16,25 @@ const receiveTodos = (filter, response) => ({
   response,
 });
 
+const requestTodos = (filter) => {
+  return {
+    type: types.REQUEST_TODOS,
+    filter,
+  };
+};
+
 const actions = {
 
   fetchTodos(filter) {
-    return api.fetchTodos(filter).then(response => receiveTodos(filter, response));
+    return (dispatch, getState) => {
+      if (getIsFetching(getState(), filter)) {
+        return;
+      }
+      dispatch(requestTodos(filter));
+      return api.fetchTodos(filter).then((response) => {
+        dispatch(receiveTodos(filter, response));
+      });
+    };
   },
 
   submitTodo(text) {

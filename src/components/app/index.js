@@ -6,7 +6,7 @@ import AddTodo from '../addTodo';
 import TodoList from '../todoList';
 import actions from '../../actions/';
 import Filters from '../filters';
-import { getVisibleTodos } from '../../reducers';
+import { getVisibleTodos, getIsFetching } from '../../reducers';
 
 class App extends Component {
   componentDidMount() {
@@ -25,6 +25,10 @@ class App extends Component {
   }
 
   render() {
+    const { isFetching, todos } = this.props;
+    if (isFetching && !todos.length) {
+      return <p>Loading...</p>;
+    }
     return (
       <div className="app">
         <div className="header">
@@ -38,7 +42,7 @@ class App extends Component {
         <Filters />
         <TodoList
           {...this.props}
-          todos={this.props.todos}
+          todos={todos}
         />
       </div>
     );
@@ -62,15 +66,17 @@ App.propTypes = {
   toggleTodo: PropTypes.func.isRequired,
   filter: PropTypes.string.isRequired,
   fetchTodos: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
   const todoFilter = ownProps.match.params.filter || 'all';
   return {
-    todos: getVisibleTodos(state.todos, todoFilter),
-    disableUndo: state.todos.byId.disableUndo,
-    disableAddTodo: state.todos.byId.disableAddTodo,
+    todos: getVisibleTodos(state, todoFilter),
+    disableUndo: state.byId.disableUndo,
+    disableAddTodo: state.byId.disableAddTodo,
     filter: todoFilter,
+    isFetching: getIsFetching(state, todoFilter),
   };
 };
 
