@@ -17,6 +17,7 @@ const byId = (state = initialState, action) => {
       return nextState;
 
     case types.SUBMIT_TODO_SUCCESS:
+    case types.TOGGLE_TODO:
       state.todos[action.response.id] = action.response;
       return {
         ...state,

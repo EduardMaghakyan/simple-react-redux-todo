@@ -12,6 +12,10 @@ const createList = (filter) => {
         return filter !== 'completed' ?
           [...state, action.response.id] :
           state;
+      case types.TOGGLE_TODO:
+        const nextState = [...state];
+        nextState[action.response.id] = action.response;
+        return nextState;
       default:
         return state;
     }

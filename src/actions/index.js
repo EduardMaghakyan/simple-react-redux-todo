@@ -64,9 +64,13 @@ const actions = {
   },
 
   toggleTodo(id) {
-    return {
-      type: types.TOGGLE_TODO,
-      id,
+    return (dispatch) => {
+      api.toggleTodo(id).then((response) => {
+        dispatch({
+          type: types.TOGGLE_TODO,
+          response,
+        });
+      });
     };
   },
 };
