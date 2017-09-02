@@ -2,7 +2,7 @@ import { normalize } from 'normalizr';
 import * as schema from './schema';
 import types from '../constants';
 import * as api from '../api';
-import { getIsFetching } from '../reducers';
+import { getIsFetching, getLastDeleted } from '../reducers';
 
 const actions = {
 
@@ -64,8 +64,13 @@ const actions = {
   },
 
   undoLastDelete() {
-    return {
-      type: types.UNDO_DELETE,
+    return (dispatch) => {
+      api.undoLastDelete(getLastDeleted()).then((response) => {
+        dispatch({
+          type: types.UNDO_DELETE_SUCCESS,
+          response: normalize(response, schema.todo),
+        });
+      });
     };
   },
 

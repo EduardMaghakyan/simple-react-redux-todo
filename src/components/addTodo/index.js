@@ -3,7 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import actions from '../../actions';
 
-const AddTodo = ({ submitTodo, inputChanged, disableAddTodo, undoLastDelete, disableUndo }) => {
+const AddTodo = (
+  {
+    submitTodo,
+    inputChanged,
+    disableAddTodo,
+    undoLastDelete,
+    disableUndo,
+  }) => {
   let input;
   return (
     <div>
@@ -33,7 +40,12 @@ const AddTodo = ({ submitTodo, inputChanged, disableAddTodo, undoLastDelete, dis
             Add Todo
           </button>
 
-          <button className="todo-undo button" onClick={undoLastDelete} disabled={disableUndo}>
+          <button
+            type="button"
+            className="todo-undo button"
+            onClick={() => undoLastDelete()}
+            disabled={disableUndo}
+          >
             Undo
           </button>
         </div>

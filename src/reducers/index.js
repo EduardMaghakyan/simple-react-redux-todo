@@ -27,3 +27,6 @@ export const getIsFetching = (state, filter) =>
 
 export const getErrorMessage = (state, filter) =>
   fromList.getErrorMessage(state.listByFilter[filter]);
+
+export const getLastDeleted = () =>
+  fromList.getLastDeleted();

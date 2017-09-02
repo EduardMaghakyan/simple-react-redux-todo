@@ -71,3 +71,17 @@ export const deleteTodo = id =>
 
     return deleted;
   });
+
+export const undoLastDelete = id =>
+  delay(500).then(() => {
+    let undo;
+    fakeDatabase.todos.map((t) => {
+      if (t.id === id) {
+        t.deleted = false;
+        undo = t;
+      }
+      return t;
+    });
+
+    return undo;
+  });

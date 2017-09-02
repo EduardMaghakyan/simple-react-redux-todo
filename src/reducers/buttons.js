@@ -3,7 +3,6 @@ import types from '../constants';
 const initialState = {
   disableAddTodo: true,
   disableUndo: true,
-  deleted: {},
 };
 
 const buttons = (state = initialState, action) => {
@@ -13,22 +12,25 @@ const buttons = (state = initialState, action) => {
         ...state,
         disableAddTodo: true,
       };
+
     case types.INPUT_CHANGED:
       return {
         ...state,
         disableAddTodo: action.inputText === '',
       };
 
-    case types.UNDO_DELETE:
+    case types.DELETE_TODO_SUCCESS:
       return {
         ...state,
-        todos: [
-          ...state.todos,
-          state.deleted,
-        ],
-        deleted: {},
+        disableUndo: false,
+      };
+
+    case types.UNDO_DELETE_SUCCESS:
+      return {
+        ...state,
         disableUndo: true,
       };
+
     default:
       return state;
   }
