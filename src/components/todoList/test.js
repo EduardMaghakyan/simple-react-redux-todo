@@ -1,7 +1,14 @@
 /* global describe, it, expect, jest */
 import React from 'react';
 import { shallow} from 'enzyme';
+import { shallow } from 'enzyme';
+import { VisibleTodos } from './index';
+import { initialState } from '../../reducers/';
+import VisibleTodos from "./visibleTodos";
 import TodoList from '.';
+
+jest.mock('node-uuid', () => ({ v4: jest.fn(() => '1') }));
+
 
 jest.mock('node-uuid', () => ({ v4: jest.fn(() => '1') }));
 
@@ -37,4 +44,28 @@ describe('Render list of todos', () => {
     component.find('.todo-delete').simulate('click');
     expect(deleteMock.mock.calls.length).toEqual(1);
   });
+});
+
+it('VisibleTodos renders without crashing', () => {
+  const submitMock = jest.fn();
+  const deleteMock = jest.fn();
+  const changeMock = jest.fn();
+  const undoLastDelete = jest.fn();
+  const toggleTodo = jest.fn();
+
+  const component = shallow(
+    <VisibleTodos
+      state={initialState}
+      submitTodo={submitMock}
+      todos={[]}
+      deleteTodo={deleteMock}
+      inputChanged={changeMock}
+      disableAddTodo
+      undoLastDelete={undoLastDelete}
+      disableUndo
+      toggleTodo={toggleTodo}
+    />,
+  );
+
+  expect(component.exists()).toEqual(true);
 });

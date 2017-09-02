@@ -5,7 +5,6 @@ const TodoList = ({ todos, deleteTodo, toggleTodo }) => {
   const todoItems = todos.map(todo => (
     <li
       key={todo.id}
-      onClick={() => toggleTodo(todo.id)}
     >
       <button
         type="button"
@@ -14,14 +13,16 @@ const TodoList = ({ todos, deleteTodo, toggleTodo }) => {
       >
         X
       </button>
-      <span
-        className="todo-text"
-        style={{
-          textDecoration: todo.completed ? 'line-through' : 'none',
-        }}
-      >
-        {todo.text}
-      </span>
+      <label onClick={() => toggleTodo(todo.id)}>
+        <span
+          className="todo-text"
+          style={{
+            textDecoration: todo.completed ? 'line-through' : 'none',
+          }}
+        >
+          {todo.text}
+        </span>
+      </label>
     </li>
   ));
 

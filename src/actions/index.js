@@ -46,9 +46,13 @@ const actions = {
   },
 
   deleteTodo(id) {
-    return {
-      type: types.DELETE_TODO,
-      id,
+    return (dispatch) => {
+      api.deleteTodo(id).then((response) => {
+        dispatch({
+          type: types.DELETE_TODO_SUCCESS,
+          response: normalize(response, schema.todo),
+        });
+      });
     };
   },
 

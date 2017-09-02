@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import actions from '../../actions';
 
 const AddTodo = ({ submitTodo, inputChanged, disableAddTodo, undoLastDelete, disableUndo }) => {
   let input;
@@ -19,14 +21,14 @@ const AddTodo = ({ submitTodo, inputChanged, disableAddTodo, undoLastDelete, dis
           ref={(element) => {
             input = element;
           }}
-          // onChange={() => inputChanged(input.value)}
+          onChange={() => inputChanged(input.value)}
         />
 
         <div className="todo-actions">
           <button
             type="submit"
             className="todo-submit button"
-            // disabled={disableAddTodo}
+            disabled={disableAddTodo}
           >
             Add Todo
           </button>
@@ -48,4 +50,9 @@ AddTodo.propTypes = {
   disableUndo: PropTypes.bool.isRequired,
 };
 
-export default AddTodo;
+const mapStateToProps = state => ({
+  disableUndo: state.buttons.disableUndo,
+  disableAddTodo: state.buttons.disableAddTodo,
+});
+
+export default connect(mapStateToProps, actions)(AddTodo);

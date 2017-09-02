@@ -1,7 +1,7 @@
 /* global browser, describe, it, beforeEach */
 const expect = require('chai').expect;
 
-describe('TodoList App', () => {
+describe('TodoList VisibleTodos', () => {
   const todoText = 'Some nice todo';
 
   beforeEach(() => {
