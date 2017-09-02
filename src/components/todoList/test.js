@@ -1,17 +1,11 @@
 /* global describe, it, expect, jest */
 import React from 'react';
-import { shallow} from 'enzyme';
 import { shallow } from 'enzyme';
-import { VisibleTodos } from './index';
 import { initialState } from '../../reducers/';
-import VisibleTodos from "./visibleTodos";
-import TodoList from '.';
+import VisibleTodos from './visibleTodos';
+import TodoList from './todoList';
 
 jest.mock('node-uuid', () => ({ v4: jest.fn(() => '1') }));
-
-
-jest.mock('node-uuid', () => ({ v4: jest.fn(() => '1') }));
-
 
 describe('Render list of todos', () => {
   const deleteMock = jest.fn();
@@ -29,7 +23,12 @@ describe('Render list of todos', () => {
     deleteTodo: deleteMock,
   };
 
-  const component = shallow(<TodoList todos={props.todos} deleteTodo={props.deleteTodo} toggleTodo={toggleTodo} />);
+  const component = shallow(
+    <TodoList
+      todos={props.todos}
+      deleteTodo={props.deleteTodo}
+      toggleTodo={toggleTodo}
+    />);
 
   it('Should render todo list', () => {
     expect(component.exists()).toEqual(true);
@@ -46,26 +45,21 @@ describe('Render list of todos', () => {
   });
 });
 
-it('VisibleTodos renders without crashing', () => {
-  const submitMock = jest.fn();
-  const deleteMock = jest.fn();
-  const changeMock = jest.fn();
-  const undoLastDelete = jest.fn();
-  const toggleTodo = jest.fn();
+describe('Render list of todos', () => {
+  it('VisibleTodos renders without crashing', () => {
+    const submitMock = jest.fn();
+    const deleteMock = jest.fn();
+    const toggleTodo = jest.fn();
 
-  const component = shallow(
-    <VisibleTodos
-      state={initialState}
-      submitTodo={submitMock}
-      todos={[]}
-      deleteTodo={deleteMock}
-      inputChanged={changeMock}
-      disableAddTodo
-      undoLastDelete={undoLastDelete}
-      disableUndo
-      toggleTodo={toggleTodo}
-    />,
-  );
+    const component = shallow(
+      <VisibleTodos
+        state={initialState}
+        submitTodo={submitMock}
+        todos={[]}
+        deleteTodo={deleteMock}
+        toggleTodo={toggleTodo}
+      />);
 
-  expect(component.exists()).toEqual(true);
+    expect(component.exists()).toEqual(true);
+  });
 });

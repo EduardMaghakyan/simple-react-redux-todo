@@ -1,188 +1,53 @@
 /* global expect, it, describe */
 
-import types from '../constants';
-import reducer, { initialState } from './todos';
+import byId from './byId';
 
-describe('Reducer', () => {
-  const todoText = 'A new todo';
-
+describe('byId Reducer', () => {
   it('Returns initialState when no action is passed!', () => {
-    expect(reducer(undefined, {})).toEqual(initialState);
+    const initialState = {
+      todos: [],
+    };
+    expect(byId(undefined, {})).toEqual(initialState);
   });
 
-  describe('Submit todo', () => {
-    it('It adds todo to current state', () => {
-      const action = {
-        type: types.SUBMIT_TODO,
+  it('Merges todos when there is response.', () => {
+    const addedTodos = [
+      {
         id: 1,
-        text: todoText,
-      };
+        text: 'ho',
+        completed: true,
+        deleted: false,
+      },
+    ];
+    const initialTodos = [
+      {
+        id: 2,
+        text: 'let’s go',
+        completed: false,
+        deleted: false,
+      },
+    ];
+    const initialState = {
+      todos: initialTodos,
+    };
 
-      const expectedState = {
-        todos: [
-          {
-            id: 1,
-            text: todoText,
-            completed: false,
-          },
-        ],
-        disableAddTodo: true,
-        disableUndo: true,
-        deleted: {},
-      };
-
-      expect(reducer(undefined, action)).toEqual(expectedState);
-    });
-  });
-
-  describe('Delete todo', () => {
-    it('deletes todo', () => {
-      const startingState = {
-        todos: [
-          {
-            id: 1,
-            text: todoText,
-            completed: false,
-          },
-        ],
-        disableAddTodo: true,
-        disableUndo: true,
-        deleted: {},
-      };
-
-      const action = {
-        type: types.DELETE_TODO,
-        id: 1,
-      };
-
-      const expectedState = {
-        todos: [],
-        disableAddTodo: true,
-        disableUndo: false,
-        deleted: {
-          id: 1,
-          text: todoText,
-          completed: false,
+    const action = {
+      response: {
+        entities: {
+          todos: addedTodos,
         },
-      };
+      },
+    };
 
-      expect(reducer(startingState, action)).toEqual(expectedState);
-    });
-  });
+    const expectedTodos = {
+      ...initialState.todos,
+      ...action.response.entities.todos,
+    };
 
-  describe('Input changed', () => {
-    it('Return same state if input is empty.', () => {
-      const startingState = {
-        todos: [],
-        disableAddTodo: true,
-        disableUndo: true,
-        deleted: {},
-      };
+    const expectedState = {
+      todos: expectedTodos,
+    };
 
-      const action = {
-        type: types.INPUT_CHANGED,
-        inputText: '',
-      };
-
-      const expectedState = {
-        todos: [],
-        disableAddTodo: true,
-        disableUndo: true,
-        deleted: {},
-      };
-
-      expect(reducer(startingState, action)).toEqual(expectedState);
-    });
-
-    it('Should return correct state when text is entered', () => {
-      const startingState = {
-        todos: [],
-        disableAddTodo: true,
-        disableUndo: true,
-        deleted: {},
-      };
-
-      const action = {
-        type: types.INPUT_CHANGED,
-        inputText: todoText,
-      };
-
-      const expectedState = {
-        todos: [],
-        disableAddTodo: false,
-        disableUndo: true,
-        deleted: {},
-      };
-
-      expect(reducer(startingState, action)).toEqual(expectedState);
-    });
-  });
-
-  describe('Undo last delete', () => {
-    it('It returns correct state', () => {
-      const startingState = {
-        todos: [],
-        disableAddTodo: true,
-        disableUndo: true,
-        deleted: {
-          id: 1,
-          text: todoText,
-          completed: false,
-        },
-      };
-
-      const action = {
-        type: types.UNDO_DELETE,
-      };
-
-      const expectedState = {
-        todos: [
-          {
-            id: 1,
-            text: todoText,
-            completed: false,
-          },
-        ],
-        disableAddTodo: true,
-        disableUndo: true,
-        deleted: {},
-      };
-
-      expect(reducer(startingState, action)).toEqual(expectedState);
-    });
-  });
-
-  describe('Toggle todos', () => {
-    it('Mark todo as completed', () => {
-      const startingState = {
-        todos: [
-          {
-            id: 1,
-            text: todoText,
-            completed: false,
-          },
-        ],
-        disableAddTodo: true,
-        disableUndo: true,
-        deleted: {},
-      };
-
-      const expectedState = {
-        ...startingState,
-        todos: [
-          {
-            id: 1,
-            text: todoText,
-            completed: true,
-          },
-        ],
-      };
-
-      const action = {
-        type: types.TOGGLE_TODO_SUCCESS,
-        id: 1,
-      };
-      expect(reducer(startingState, action)).toEqual(expectedState);
-    });
+    expect(byId(initialState, action)).toEqual(expectedState);
   });
 });

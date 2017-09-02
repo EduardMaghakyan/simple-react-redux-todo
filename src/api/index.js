@@ -40,7 +40,7 @@ export const fetchTodos = filter =>
   });
 
 
-export const addTodo = (text) =>
+export const addTodo = text =>
   delay(500).then(() => {
     const todo = {
       id: v4(),
@@ -51,14 +51,14 @@ export const addTodo = (text) =>
     return todo;
   });
 
-export const toggleTodo = (id) =>
+export const toggleTodo = id =>
   delay(500).then(() => {
     const todo = fakeDatabase.todos.find(t => t.id === id);
     todo.completed = !todo.completed;
     return todo;
   });
 
-export const deleteTodo = (id) =>
+export const deleteTodo = id =>
   delay(500).then(() => {
     let deleted;
     fakeDatabase.todos.map((t) => {
