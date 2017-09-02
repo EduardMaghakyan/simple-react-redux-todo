@@ -6,6 +6,7 @@ import { PropTypes } from 'prop-types';
 const FilterLink = ({ filter, children }) => (
   <NavLink
     to={`/${filter}`}
+    className="button"
     activeClassName="active"
     isActive={(match, location) => {
       if (!match && location.pathname === '/' && children === 'All') {

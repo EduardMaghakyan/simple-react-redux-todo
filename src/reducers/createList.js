@@ -32,6 +32,7 @@ const createList = (filter) => {
         deleted.push(action.response.result);
         return state.filter(id => id !== action.response.result);
       case types.UNDO_DELETE_SUCCESS:
+        deleted.length = 0;
         return [...state, action.response.result];
       default:
         return state;
@@ -81,4 +82,4 @@ export default createList;
 export const getIds = state => state.ids;
 export const getIsFetching = state => state.isFetching;
 export const getErrorMessage = state => state.errorMessage;
-export const getLastDeleted = () => deleted[0];
+export const getLastDeleted = () => deleted.pop();

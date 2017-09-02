@@ -13,9 +13,8 @@ const AddTodo = (
   }) => {
   let input;
   return (
-    <div>
+    <div className="add-todo">
       <form
-        className="add-todo"
         onSubmit={(event) => {
           event.preventDefault();
           submitTodo(input.value);

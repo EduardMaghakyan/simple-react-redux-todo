@@ -35,13 +35,17 @@ body {
   text-align: center;
 }
 
+.todo-filters {
+  display: flex;
+  justify-content: space-between;
+}
+
 .todo-list {
   width: 88%;
   min-height: 300px;
   background: #fff;
   box-shadow: 2px 2px 0 #ddd;
   padding: 22px 6%;
-  margin-top: 40px;
 }
 
 .todo-list li {
@@ -79,6 +83,7 @@ body {
 
 .add-todo {
   margin-top: 20px;
+  margin-bottom: 40px;
 }
 
 .add-todo input {
@@ -104,6 +109,8 @@ body {
 }
 
 .todo-actions {
+  display: flex;
+  justify-content: space-between;
   border-bottom: 1px solid #ddd;
   box-shadow: 2px 0 #ddd;
   overflow: auto;
@@ -111,10 +118,8 @@ body {
 }
 
 .button {
+  width: 100%;
   float: left;
-  width: 200px;
-  min-width: 100px;
-  max-width: 250px;
   display: block;
   padding: 1em;
   border: none;
@@ -126,6 +131,13 @@ body {
   box-shadow: 2px 0 #ddd;
   -webkit-backface-visibility: hidden;
   -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  text-decoration: none;
+}
+
+.button.active {
+  color: #000000;
+  background: rgba(221, 221, 221, 0.6);
 }
 
 .button:hover {
@@ -138,13 +150,4 @@ body {
     width: 250px;
     margin: 0 auto;
   }
-
-  .button {
-    width: 125px;
-  }
-}
-
-.active {
-  text-decoration: none;
-  color: #000000;
 }
