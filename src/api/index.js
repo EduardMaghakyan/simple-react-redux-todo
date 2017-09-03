@@ -3,8 +3,8 @@ import { v4 } from 'node-uuid';
 // This is a fake in-memory implementation of something
 // that would be implemented by calling a REST server.
 
-const fakeDatabase = {
-  todos: [{
+const fakeData = [
+  {
     id: v4(),
     text: 'hey',
     completed: true,
@@ -19,7 +19,11 @@ const fakeDatabase = {
     text: 'let’s go',
     completed: false,
     deleted: false,
-  }],
+  },
+];
+
+const fakeDatabase = {
+  todos: [],
 };
 
 const delay = ms =>

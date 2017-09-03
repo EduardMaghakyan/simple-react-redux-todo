@@ -1,6 +1,8 @@
 /* global expect, it, describe */
-
+import types from '../constants';
 import byId from './byId';
+import buttons from './buttons';
+import createList, * as fromList from './createList';
 
 describe('byId Reducer', () => {
   it('Returns initialState when no action is passed!', () => {
@@ -49,5 +51,64 @@ describe('byId Reducer', () => {
     };
 
     expect(byId(initialState, action)).toEqual(expectedState);
+  });
+});
+
+describe('buttons Reducer', () => {
+  it('Disables add todo', () => {
+    const initialState = {
+      disableAddTodo: false,
+      disableUndo: true,
+    };
+
+    const action = {
+      type: types.SUBMIT_TODO_SUCCESS,
+    };
+
+    const actual = buttons(initialState, action);
+    expect(true, actual.disableAddTodo);
+  });
+
+  it('Enable add todo', () => {
+    const initialState = {
+      disableAddTodo: true,
+      disableUndo: true,
+    };
+
+    const action = {
+      type: types.INPUT_CHANGED,
+      text: 'some text',
+    };
+
+    const actual = buttons(initialState, action);
+    expect(false, actual.disableAddTodo);
+  });
+
+  it('Disables undo button.', () => {
+    const initialState = {
+      disableAddTodo: true,
+      disableUndo: false,
+    };
+
+    const action = {
+      type: types.DELETE_TODO_SUCCESS,
+    };
+
+    const actual = buttons(initialState, action);
+    expect(true, actual.disableUndo);
+  });
+
+  it('Enables undo button.', () => {
+    const initialState = {
+      disableAddTodo: true,
+      disableUndo: true,
+    };
+
+    const action = {
+      type: types.UNDO_DELETE_SUCCESS,
+    };
+
+    const actual = buttons(initialState, action);
+    expect(false, actual.disableUndo);
   });
 });
