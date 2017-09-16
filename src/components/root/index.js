@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import { Provider } from 'react-redux';
 import { PropTypes } from 'prop-types';

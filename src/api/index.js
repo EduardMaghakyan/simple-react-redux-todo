@@ -23,7 +23,7 @@ const fakeData = [
 ];
 
 const fakeDatabase = {
-  todos: [],
+  todos: fakeData,
 };
 
 const delay = ms =>

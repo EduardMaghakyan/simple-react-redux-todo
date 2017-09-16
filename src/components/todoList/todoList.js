@@ -13,8 +13,9 @@ const TodoList = ({ todos, deleteTodo, toggleTodo }) => {
       >
         X
       </button>
-      <label onClick={() => toggleTodo(todo.id)}>
+      <label onClick={() => toggleTodo(todo.id)} htmlFor={todo.id}>
         <span
+          id={todo.id}
           className="todo-text"
           style={{
             textDecoration: todo.completed ? 'line-through' : 'none',

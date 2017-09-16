@@ -77,6 +77,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-VisibleTodos = withRouter(connect(mapStateToProps, actions)(VisibleTodos));
-
-export default VisibleTodos;
+export default withRouter(connect(mapStateToProps, actions)(VisibleTodos));

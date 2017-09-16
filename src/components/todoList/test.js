@@ -1,7 +1,7 @@
 /* global describe, it, expect, jest */
 import React from 'react';
 import { shallow } from 'enzyme';
-import { initialState } from '../../reducers/';
+import { initialState } from '../../reducers';
 import VisibleTodos from './visibleTodos';
 import TodoList from './todoList';
 
@@ -50,6 +50,7 @@ describe('Render list of todos', () => {
     const submitMock = jest.fn();
     const deleteMock = jest.fn();
     const toggleTodo = jest.fn();
+    const fetchTodos = jest.fn();
 
     const component = shallow(
       <VisibleTodos
@@ -58,6 +59,10 @@ describe('Render list of todos', () => {
         todos={[]}
         deleteTodo={deleteMock}
         toggleTodo={toggleTodo}
+        filter="all"
+        fetchTodos={fetchTodos}
+        isFetching={false}
+        errorMessage=""
       />);
 
     expect(component.exists()).toEqual(true);

@@ -2,7 +2,6 @@
 import types from '../constants';
 import byId from './byId';
 import buttons from './buttons';
-import createList, * as fromList from './createList';
 
 describe('byId Reducer', () => {
   it('Returns initialState when no action is passed!', () => {

@@ -1,7 +1,7 @@
 /* global it, expect, jest */
 
 import React from 'react';
-import {shallow} from 'enzyme';
+import { shallow } from 'enzyme';
 import Root from './index';
 
 jest.mock('node-uuid', () => ({ v4: jest.fn(() => '1') }));
