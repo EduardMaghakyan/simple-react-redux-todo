@@ -1,8 +1,8 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
 html {
-  line-height: 1.15; /* 1 */
-  -ms-text-size-adjust: 100%; /* 2 */
-  -webkit-text-size-adjust: 100%; /* 2 */
+  line-height: 1.15;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
 }
 
 html,
@@ -60,7 +60,7 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   float: left;
-  line-height: 1;
+  line-height: 1.5;
 }
 
 .todo-list li .todo-delete {
