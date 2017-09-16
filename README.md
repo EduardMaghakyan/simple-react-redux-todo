@@ -1,7 +1,8 @@
 ## Simple To-Do app with React and Redux. 
 
 Simple To-Do app based on [tutorial](https://medium.com/@sanjsanj/a-guide-to-tdd-a-react-redux-todolist-app-part-1-b8a200bb7091)
-Additionally https://egghead.io/courses/building-react-applications-with-idiomatic-redux
+More Redux stuff from: https://egghead.io/courses/building-react-applications-with-idiomatic-redux
+Styling inspiration https://codepen.io/mattlitzinger/pen/JfECh
 
 ### Setup
 ```
